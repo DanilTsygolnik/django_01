@@ -1,7 +1,5 @@
 ## Первичные изменения в шаблоне
 
-### Настройки проекта
-
 Файл `storedvd/settings.py`
 
 
@@ -36,7 +34,7 @@ ROOT_URLCONF = 'storedvd.urls'
 
 ---
 
-Файл `storedvd/urls.py`
+Файлы `storedvd/urls.py`, `shop/urls.py`
 
 
 Начинаем добавлять правила маршрутизации. По-простому, мы перечисляем, для какого URL будет вызвана определенная функция (View). Добавляем правила для главной страницы магазина:
@@ -49,4 +47,17 @@ ROOT_URLCONF = 'storedvd.urls'
     - импортируем нужные модули `from django.views.generic import RedirectView`;
 
 После внесенных изменений получаем редирект с адреса `127.0.0.1:8000` на `127.0.0.1:8000/shop/` c ожидаемым кодом 404:
-<img src="img/init_urlpatterns_setting_result.png" width=200>
+
+<img src="img/init_urlpatterns_setting_result.png" width=600>
+
+
+В начале проект полезно указать пути к:
+- статическим файлам (стили, скрипты) --  `urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)`;
+- файлам, которые будут загружать пользователи -- `urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`;
+- не забыть импортировать модули `static` и `settings`:
+    - `from django.conf import settings`;
+    - `from django.conf.urls.static import static`.
+
+Отображение в браузере после внесенных изменений:
+
+<img src="img/init_urlpatterns_static_files.png" width=600>
