@@ -33,3 +33,20 @@ ROOT_URLCONF = 'storedvd.urls'
 - `USE_L10N = True` форматирует дату-время в соответствии с локализацией;
 - `TIME_ZONE = 'Europe/Moscow'`;
 - `USE_TZ = True` приводить входящие метки времени к значениям выбранной зоны.
+
+---
+
+Файл `storedvd/urls.py`
+
+
+Начинаем добавлять правила маршрутизации. По-простому, мы перечисляем, для какого URL будет вызвана определенная функция (View). Добавляем правила для главной страницы магазина:
+1) `www.storedvd/shop`:
+    - `path('shop/', include('shop.urls'))`;
+    - не забываем импортировать модуль include `from django.urls import path, include`;
+    - создаем заготовку модуля `shop/urls.py` с пустым списком `urlpatterns`;
+2) редирект с корневого адреса (`ROOT_URLCONF`) на `www.storedvd/shop`
+    - `path('', RedirectView.as_view(url='shop/', permanent=True))`;
+    - импортируем нужные модули `from django.views.generic import RedirectView`;
+
+После внесенных изменений получаем редирект с адреса `127.0.0.1:8000` на `127.0.0.1:8000/shop/` c ожидаемым кодом 404:
+<img src="img/init_urlpatterns_setting_result.png" width=200>
